@@ -1,0 +1,34 @@
+package com.leon.uitest;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
+public class Menu1Fragment extends Fragment {
+
+    private Menu1ViewModel mViewModel;
+
+    public static Menu1Fragment newInstance() {
+        return new Menu1Fragment();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.menu1_fragment, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(Menu1ViewModel.class);
+        // TODO: Use the ViewModel
+    }
+
+}

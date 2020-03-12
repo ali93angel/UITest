@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">UITest</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about">درباره</string>
+    <string name="menu">منو</string>
+    <string name="factor">فاکتورها</string>
+    <string name="comment">نظرات</string>
+</resources>

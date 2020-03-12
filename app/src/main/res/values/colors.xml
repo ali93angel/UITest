@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#58000000</color>
+    <color name="colorAccent">#2d57ec</color>
+    <color name="mainBlue">#37aed6</color>
+    <color name="mainGreenBlue">#19dbc8</color>
+    <color name="white">#ffffff</color>
+    <color name="errorMessage">#e74c3c</color>
+    <color name="homeBackground">#FAFAFA</color>
+    <color name="civBorder">#868686</color>
+    <color name="hintFontColorWhenFocus">#00155f</color>
+    <color name="black">#000000</color>
+    <color name="homeBlue">#2d57ec</color>
+    <color name="keyboardKeys">#292929</color>
+    <color name="colorSecondary">#7f1a18</color>
+    <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="colorTextSecondary">#056D40</color>
+    <color name="translucentBackground">#ED000000</color>
+    <color name="grey">#BDBDBD</color>
+    <color name="back_ground_grey">#FAFAFA</color>
+    <color name="rect_red">#E24343</color>
+    <color name="rect_red_pressed_dark">#8F2B2B</color>
+    <color name="rect_red_pressed_light">#FF7B7B</color>
+    <color name="rect_grey">#868686</color>
+    <color name="rect_grey_pressed_dark">#555555</color>
+    <color name="rect_grey_pressed_light">#BEBCBC</color>
+    <color name="rect_green">#07be6f</color>
+    <color name="rect_green_pressed_dark">#007543</color>
+    <color name="rect_green_pressed_light">#2FC585</color>
+    <color name="primary_green">#06794B</color>
+    <color name="primary_red">#FFE24343</color>
+    <color name="primary_grey">#868686</color>
+    <color name="warning">#f1c40f</color>
+
+    <color name="refresh_color_1">#EF5350</color>
+    <color name="refresh_color_2">#29B6F6</color>
+    <color name="refresh_color_3">#FFA726</color>
+    <color name="refresh_color_4">#9CCC65</color>
+    <color name="refresh_color_5">#42A5F5</color>
+    <color name="refresh_color_6">#5c6bc0</color>
+    <color name="refresh_color_7">#ff7043</color>
+    <color name="refresh_color_8">#26A69A</color>
+    <color name="refresh_color_9">#5e35b1</color>
+    <color name="refresh_color_10">#e53935</color>
+
+    <color name="textPrimary">#424242</color>
+    <color name="textSecondary">#8e8e8e</color>
+    <color name="label_color">#868686</color>
+    <color name="value_color_primary_grey">#626262</color>
+    <color name="value_color_secondary_grey">#868686</color>
+    <color name="value_color_primary_blue">#00155f</color>
+    <color name="divider_color">#b7b7b7</color>
+    <color name="item_divider_color">#BBBBBB</color>
+
+    <color name="transaction_outgoing_color">#F44336</color>
+    <color name="transaction_incoming_color">#388E3C</color>
+
+    <color name="input_underline_color">#13c8b5</color>
+    <color name="card_number_placeholder_color">#b1b1b1</color>
+    <color name="transparent">#00000000</color>
+
+
+    <color name="gradient_start_one">#6ebd45</color>
+    <color name="gradient_start_tow">#20bf55</color>
+    <color name="gradient_center_one">#0bab64</color>
+    <color name="gradient_center_tow">#3bb78f</color>
+    <color name="gradient_end_one">#00b09b</color>
+    <color name="gradient_end_tow">#00b8a2</color>
+    <color name="textBody">#707070</color>
+
+
+    <color name="back_ground_grey_expand_toolbar">#8D000000</color>
+    <color name="custom_ripple">#b1b1b1</color>
+
+</resources>
