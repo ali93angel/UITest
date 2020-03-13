@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         MyPagerAdapter adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), getApplicationContext());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapterViewPager);
-        viewPager.setCurrentItem(3);
+        viewPager.setCurrentItem(1);
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

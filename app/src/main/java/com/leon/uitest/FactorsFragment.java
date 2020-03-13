@@ -55,7 +55,7 @@ public class FactorsFragment extends BottomSheetDialogFragment {
         ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             // TODO: Customize the item layout
             super(inflater.inflate(R.layout.factors_fragment_list_dialog_item, parent, false));
-            text = itemView.findViewById(R.id.text);
+            text = itemView.findViewById(R.id.text1);
         }
     }
 

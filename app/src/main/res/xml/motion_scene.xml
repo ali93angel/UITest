@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="1000"
+        motion:motionInterpolator="linear">
+
+        <OnClick
+            motion:clickAction="transitionToEnd"
+            motion:targetId="@id/relativeLayout" />
+    </Transition>
+
+<!--    <ConstraintSet android:id="@+id/start">-->
+
+<!--        <Constraint-->
+<!--            android:id="@id/relativeLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <CustomAttribute-->
+<!--                motion:attributeName="padding"-->
+<!--                motion:customIntegerValue="0" />-->
+<!--        </Constraint>-->
+<!--    </ConstraintSet>-->
+<!--    <Transition-->
+<!--        motion:constraintSetEnd="@+id/end"-->
+<!--        motion:constraintSetStart="@+id/start"-->
+<!--        motion:duration="1000"-->
+<!--        motion:motionInterpolator="linear">-->
+<!--        <OnClick-->
+<!--            motion:clickAction="transitionToStart"-->
+<!--            motion:targetId="@id/relativeLayout" />-->
+<!--    </Transition>-->
+<!--    <ConstraintSet android:id="@+id/end">-->
+
+<!--        <Constraint-->
+<!--            android:id="@id/relativeLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <CustomAttribute-->
+<!--                motion:attributeName="padding"-->
+<!--                motion:customIntegerValue="@android:integer/config_longAnimTime" />-->
+<!--        </Constraint>-->
+<!--    </ConstraintSet>-->
+
+</MotionScene>

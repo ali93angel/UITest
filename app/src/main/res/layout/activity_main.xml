@@ -37,58 +37,5 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.tabs.TabLayout>
     </androidx.viewpager.widget.ViewPager>
-    <!--        <LinearLayout-->
-    <!--            android:id="@+id/linearLayout1"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="horizontal"-->
-    <!--            android:visibility="gone">-->
 
-    <!--            <TextView-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="match_parent"-->
-    <!--                android:layout_gravity="center"-->
-    <!--                android:gravity="center"-->
-    <!--                android:text="text1" />-->
-    <!--        </LinearLayout>-->
-
-    <!--        <LinearLayout-->
-    <!--            android:id="@+id/linearLayout2"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="horizontal"-->
-    <!--            android:visibility="gone">-->
-
-    <!--            <TextView-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="match_parent"-->
-    <!--                android:layout_gravity="center"-->
-    <!--                android:gravity="center"-->
-    <!--                android:text="text2" />-->
-    <!--        </LinearLayout>-->
-
-    <!--        <LinearLayout-->
-    <!--            android:id="@+id/linearLayout3"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="horizontal"-->
-    <!--            android:visibility="visible">-->
-
-
-    <!--        </LinearLayout>-->
-
-    <!--        <LinearLayout-->
-    <!--            android:id="@+id/linearLayout4"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="horizontal"-->
-    <!--            android:visibility="gone">-->
-
-    <!--            <TextView-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="match_parent"-->
-    <!--                android:layout_gravity="center"-->
-    <!--                android:gravity="center"-->
-    <!--                android:text="text4" />-->
-    <!--        </LinearLayout>-->
 </RelativeLayout>

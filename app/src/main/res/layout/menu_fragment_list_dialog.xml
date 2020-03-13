@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:paddingTop="@dimen/list_item_spacing_half"
-    android:paddingBottom="@dimen/list_item_spacing_half"
-    tools:context=".Menu2Fragment"
-    tools:listitem="@layout/menu2_fragment_list_dialog_item" />
+    android:padding="@dimen/_5sdp"
+    android:background="@color/civBorder"
+    tools:context=".MenuFragment"
+    tools:listitem="@layout/menu_fragment_list_dialog_item" />

@@ -27,7 +27,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             case 0: // Fragment # 0 - This will show FirstFragment
                 return AboutFragment.newInstance("4", "Page # 4");
             case 1: // Fragment # 0 - This will show FirstFragment different title
-                return Menu2Fragment.newInstance(2);
+                return MenuFragment.newInstance(2);
             case 2: // Fragment # 1 - This will show SecondFragment
                 return CommentsFragment.newInstance("2", "Page # 2");
             case 3: // Fragment # 1 - This will show SecondFragment
