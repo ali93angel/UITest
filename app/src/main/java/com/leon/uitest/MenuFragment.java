@@ -19,19 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-/**
- * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
- * <p>You can show this modal bottom sheet from your activity like this:</p>
- * <pre>
- *     Menu2Fragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
- * </pre>
- */
 public class MenuFragment extends BottomSheetDialogFragment {
-
-    // TODO: Customize parameter argument names
     private static final String ARG_ITEM_COUNT = "item_count";
 
-    // TODO: Customize parameters
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
         final Bundle args = new Bundle();
@@ -77,7 +67,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
             return view;
         }
 
-        public void onMotionTransitionListener() {
+        void onMotionTransitionListener() {
             final Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in);
             motionLayout.setInteractionEnabled(true);
             motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {

@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="?attr/selectableItemBackground"
-                android:text="hi"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="visible" />
         </androidx.appcompat.widget.LinearLayoutCompat>
