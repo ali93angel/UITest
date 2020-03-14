@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/motionLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    app:layoutDescription="@xml/motion_scene">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -11,7 +14,6 @@
         android:padding="@dimen/_15sdp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearLayoutTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/item_background_border"
@@ -40,40 +42,30 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:weightSum="3">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textViewIncrease"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:text="+"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorTextSecondary" />
 
                 <TextView
                     android:id="@+id/textViewNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:text="0"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorTextSecondary" />
 
                 <TextView
                     android:id="@+id/textViewDecrease"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:text="-"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorTextSecondary" />
 
             </LinearLayout>
@@ -89,4 +81,4 @@
                 android:visibility="visible" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
-</RelativeLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

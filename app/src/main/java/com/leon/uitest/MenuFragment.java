@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +26,8 @@ import java.util.ArrayList;
 
 public class MenuFragment extends BottomSheetDialogFragment {
     private static final String ARG_ITEM_COUNT = "item_count";
+    TextView textViewItemNumber, textViewItemPrice;
+    int totalPrice, total;
 
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
@@ -51,20 +53,21 @@ public class MenuFragment extends BottomSheetDialogFragment {
         menuModels.add(new MenuModel("کاپوچینو", 1500, R.drawable.coffee));
         menuModels.add(new MenuModel("کرتادو", 17000, R.drawable.coffee));
         menuModels.add(new MenuModel("کولد برو", 14500, R.drawable.coffee));
-        final RecyclerView recyclerView = (RecyclerView) view;
+        textViewItemNumber = view.findViewById(R.id.textViewItemNumber);
+        textViewItemPrice = view.findViewById(R.id.textViewItemPrice);
+        final RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new ItemAdapter(menuModels, getActivity()));
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
-
-        final TextView textViewItem;
-        TextView textViewPrice, textViewDecrease, textViewIncrease, textViewNumber;
+        TextView textViewItem, textViewPrice, textViewDecrease, textViewIncrease, textViewNumber;
         ImageView imageView;
         RelativeLayout relativeLayout;
         LinearLayout linearLayout;
-        MotionLayout motionLayout;
         private View view;
+        int padding, size;
+        boolean zoom = false;
 
         ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             // TODO: Customize the item layout
@@ -75,14 +78,14 @@ public class MenuFragment extends BottomSheetDialogFragment {
             textViewIncrease = itemView.findViewById(R.id.textViewIncrease);
             textViewNumber = itemView.findViewById(R.id.textViewNumber);
             imageView = itemView.findViewById(R.id.image);
-            motionLayout = itemView.findViewById(R.id.motionLayout1);
             relativeLayout = itemView.findViewById(R.id.relativeLayout);
             linearLayout = itemView.findViewById(R.id.linearLayoutNumber);
 
             textViewDecrease.setVisibility(View.GONE);
             textViewIncrease.setVisibility(View.GONE);
             textViewNumber.setVisibility(View.GONE);
-
+            size = imageView.getLayoutParams().height;
+            padding = relativeLayout.getPaddingEnd();
             onMotionTransitionListener();
             view = parent;
         }
@@ -93,37 +96,43 @@ public class MenuFragment extends BottomSheetDialogFragment {
 
         void onMotionTransitionListener() {
             final Animation animation1 = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in);
-            final Animation animation2 = AnimationUtils.loadAnimation(getActivity(), R.anim.fragment_fade_enter);
-            motionLayout.setInteractionEnabled(true);
-            motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
+            final Animation animation2 = AnimationUtils.loadAnimation(getActivity(), R.anim.open_main);
+            final Animation animation3 = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out);
+            final Animation animation4 = AnimationUtils.loadAnimation(getActivity(), R.anim.close_main);
+            View.OnClickListener onClickListener = new View.OnClickListener() {
                 @Override
-                public void onTransitionStarted(MotionLayout motionLayout, int i, int i1) {
+                public void onClick(View v) {
+                    if (!zoom) {
+                        imageView.getLayoutParams().height = 250;
+                        imageView.getLayoutParams().width = 250;
+                        textViewDecrease.setVisibility(View.VISIBLE);
+                        textViewIncrease.setVisibility(View.VISIBLE);
+                        textViewNumber.setVisibility(View.VISIBLE);
+                        relativeLayout.setPadding(0, 0, 0, 0);
+                        relativeLayout.setPadding(0, 0, 0, 0);
+                        relativeLayout.startAnimation(animation1);
+                        textViewNumber.startAnimation(animation2);
+                        textViewDecrease.startAnimation(animation2);
+                        textViewIncrease.startAnimation(animation2);
+                        zoom = true;
+                    } else {
+                        imageView.getLayoutParams().height = size;
+                        imageView.getLayoutParams().width = size;
+                        textViewDecrease.setVisibility(View.GONE);
+                        textViewIncrease.setVisibility(View.GONE);
+                        textViewNumber.setVisibility(View.GONE);
+                        relativeLayout.setPadding(padding, padding, padding, padding);
+                        relativeLayout.startAnimation(animation3);
+                        textViewNumber.startAnimation(animation4);
+                        textViewDecrease.startAnimation(animation4);
+                        textViewIncrease.startAnimation(animation4);
+                        zoom = false;
+                    }
                 }
-
-                @Override
-                public void onTransitionChange(MotionLayout motionLayout, int i, int i1, float v) {
-
-                }
-
-                @Override
-                public void onTransitionCompleted(MotionLayout motionLayout, int i) {
-                    relativeLayout.setPadding(0, 0, 0, 0);
-                    imageView.getLayoutParams().height = 250;
-                    imageView.getLayoutParams().width = 250;
-                    relativeLayout.startAnimation(animation1);
-                    textViewDecrease.setVisibility(View.VISIBLE);
-                    textViewIncrease.setVisibility(View.VISIBLE);
-                    textViewNumber.setVisibility(View.VISIBLE);
-                    textViewDecrease.startAnimation(animation2);
-                    textViewIncrease.startAnimation(animation2);
-                    textViewNumber.startAnimation(animation2);
-                }
-
-                @Override
-                public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v) {
-
-                }
-            });
+            };
+            imageView.setOnClickListener(onClickListener);
+            textViewItem.setOnClickListener(onClickListener);
+            textViewPrice.setOnClickListener(onClickListener);
         }
     }
 
@@ -169,6 +178,13 @@ public class MenuFragment extends BottomSheetDialogFragment {
                     }
                 }
             });
+            holder.textViewPrice.setOnDragListener(new View.OnDragListener() {
+                @Override
+                public boolean onDrag(View v, DragEvent event) {
+
+                    return false;
+                }
+            });
             holder.textViewNumber.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -177,7 +193,16 @@ public class MenuFragment extends BottomSheetDialogFragment {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                    totalPrice = 0;
+                    total = 0;
+                    for (MenuModel menuModel : menuModels) {
+                        totalPrice = totalPrice + (menuModel.number * menuModel.price);
+                        total = total + menuModel.number;
+                    }
+                    textViewItemNumber.setText(String.valueOf(total));
+                    textViewItemNumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down));
+                    textViewItemPrice.setText(String.valueOf(totalPrice));
+                    textViewItemPrice.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out));
                 }
 
                 @Override
