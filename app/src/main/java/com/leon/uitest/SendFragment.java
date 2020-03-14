@@ -28,7 +28,7 @@ public class SendFragment extends DialogFragment {
     private static final String MENU_ARGUMENT = "menuModels";
     View view;
     Context context;
-    ArrayList<MenuModel> menuModels1;
+    ArrayList<MenuModel> menuModels1 = new ArrayList<>();
     List<MenuModel> menuModels2;
 
     TextView textViewItemNumber, textViewItemPrice, textViewItemToman;
@@ -50,6 +50,7 @@ public class SendFragment extends DialogFragment {
             String jsonBundle = getArguments().getString(MENU_ARGUMENT);
             menuModels2 = Arrays.asList(new Gson().fromJson(jsonBundle, MenuModel[].class));
         }
+        menuModels1.addAll(menuModels2);
         context = getActivity();
         initialize();
         return view;
@@ -61,7 +62,7 @@ public class SendFragment extends DialogFragment {
         textViewItemToman = view.findViewById(R.id.textViewItemToman);
         final RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ItemAdapter(menuModels2, getActivity()));
+        recyclerView.setAdapter(new ItemAdapter(menuModels1, getActivity()));
 
     }
 
@@ -108,10 +109,10 @@ public class SendFragment extends DialogFragment {
 
     private class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-        List<MenuModel> menuModels;
+        ArrayList<MenuModel> menuModels;
         private Context mContext;
 
-        ItemAdapter(List<MenuModel> menuModels, Context context) {
+        ItemAdapter(ArrayList<MenuModel> menuModels, Context context) {
             this.menuModels = menuModels;
             mContext = context;
         }
@@ -133,14 +134,7 @@ public class SendFragment extends DialogFragment {
         }
 
         void onClickListener(final ViewHolder holder, final int position) {
-            totalPrice = 0;
-            total = 0;
-            for (MenuModel menuModel : menuModels) {
-                totalPrice = totalPrice + (menuModel.number * menuModel.price);
-                total = total + menuModel.number;
-            }
-            textViewItemNumber.setText(String.valueOf(total));
-            textViewItemPrice.setText(String.valueOf(totalPrice));
+            counting();
             holder.textViewIncrease.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -165,16 +159,7 @@ public class SendFragment extends DialogFragment {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    totalPrice = 0;
-                    total = 0;
-                    for (MenuModel menuModel : menuModels) {
-                        totalPrice = totalPrice + (menuModel.number * menuModel.price);
-                        total = total + menuModel.number;
-                    }
-                    textViewItemNumber.setText(String.valueOf(total));
-                    textViewItemNumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down));
-                    textViewItemPrice.setText(String.valueOf(totalPrice));
-                    textViewItemPrice.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out));
+                    counting();
                 }
 
                 @Override
@@ -208,8 +193,23 @@ public class SendFragment extends DialogFragment {
                     holder.linearLayoutQuestion.setVisibility(View.GONE);
 //                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
                     holder.linearLayoutItems.setVisibility(View.VISIBLE);
+                    counting();
                 }
             });
+        }
+
+        void counting() {
+            totalPrice = 0;
+            total = 0;
+            for (MenuModel menuModel : menuModels) {
+                totalPrice = totalPrice + (menuModel.number * menuModel.price);
+                total = total + menuModel.number;
+            }
+            textViewItemNumber.setText(String.valueOf(total));
+            textViewItemNumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down));
+            textViewItemPrice.setText(String.valueOf(totalPrice));
+            textViewItemPrice.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out));
+
         }
 
         @Override
