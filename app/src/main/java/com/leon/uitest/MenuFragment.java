@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -28,6 +29,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
     private static final String ARG_ITEM_COUNT = "item_count";
     TextView textViewItemNumber, textViewItemPrice;
     int totalPrice, total;
+    Button buttonSend;
 
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
@@ -55,6 +57,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
         menuModels.add(new MenuModel("کولد برو", 14500, R.drawable.coffee));
         textViewItemNumber = view.findViewById(R.id.textViewItemNumber);
         textViewItemPrice = view.findViewById(R.id.textViewItemPrice);
+        buttonSend = view.findViewById(R.id.buttonSend);
         final RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new ItemAdapter(menuModels, getActivity()));
