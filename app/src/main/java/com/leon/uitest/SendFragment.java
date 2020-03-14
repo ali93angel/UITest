@@ -203,7 +203,7 @@ public class SendFragment extends DialogFragment {
             holder.imageViewYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    menuModels.remove(position);
+                    menuModels.remove(position);
 //                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
                     holder.linearLayoutQuestion.setVisibility(View.GONE);
 //                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
