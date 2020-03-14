@@ -27,9 +27,10 @@ import java.util.ArrayList;
 
 public class MenuFragment extends BottomSheetDialogFragment {
     private static final String ARG_ITEM_COUNT = "item_count";
-    TextView textViewItemNumber, textViewItemPrice;
+    TextView textViewItemNumber, textViewItemPrice, textViewItemToman;
     int totalPrice, total;
     Button buttonSend;
+    RelativeLayout relativeLayout;
 
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
@@ -57,10 +58,23 @@ public class MenuFragment extends BottomSheetDialogFragment {
         menuModels.add(new MenuModel("کولد برو", 14500, R.drawable.coffee));
         textViewItemNumber = view.findViewById(R.id.textViewItemNumber);
         textViewItemPrice = view.findViewById(R.id.textViewItemPrice);
+        textViewItemToman = view.findViewById(R.id.textViewItemToman);
         buttonSend = view.findViewById(R.id.buttonSend);
+        relativeLayout = view.findViewById(R.id.relativeLayoutTotal);
+        setOnRelativeLayoutClickListener();
         final RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new ItemAdapter(menuModels, getActivity()));
+    }
+
+    void setOnRelativeLayoutClickListener() {
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+                buttonSend.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
