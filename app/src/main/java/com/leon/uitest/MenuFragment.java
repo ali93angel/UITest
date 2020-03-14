@@ -31,6 +31,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
     int totalPrice, total;
     Button buttonSend;
     RelativeLayout relativeLayout;
+    ArrayList<MenuModel> menuModels = new ArrayList<>();
 
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
@@ -49,7 +50,6 @@ public class MenuFragment extends BottomSheetDialogFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ArrayList<MenuModel> menuModels = new ArrayList<>();
         menuModels.add(new MenuModel("قهوه", 12000, R.drawable.coffee));
         menuModels.add(new MenuModel("چیزکیک", 23000, R.drawable.coffee));
         menuModels.add(new MenuModel("لاته", 1600, R.drawable.coffee));
@@ -71,6 +71,10 @@ public class MenuFragment extends BottomSheetDialogFragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SendFragment sendFragment = SendFragment.newInstance(menuModels);
+                assert getFragmentManager() != null;
+                sendFragment.show(getFragmentManager(), "منو");
                 buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
                 buttonSend.setVisibility(View.VISIBLE);
             }
