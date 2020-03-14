@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +58,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
         textViewItemNumber = view.findViewById(R.id.textViewItemNumber);
         textViewItemPrice = view.findViewById(R.id.textViewItemPrice);
         textViewItemToman = view.findViewById(R.id.textViewItemToman);
-        buttonSend = view.findViewById(R.id.buttonSend);
+
         relativeLayout = view.findViewById(R.id.relativeLayoutTotal);
         setOnRelativeLayoutClickListener();
         final RecyclerView recyclerView = view.findViewById(R.id.list);
@@ -200,13 +199,6 @@ public class MenuFragment extends BottomSheetDialogFragment {
                         menuModels.get(position).number = menuModels.get(position).number - 1;
                         holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
                     }
-                }
-            });
-            holder.textViewPrice.setOnDragListener(new View.OnDragListener() {
-                @Override
-                public boolean onDrag(View v, DragEvent event) {
-
-                    return false;
                 }
             });
             holder.textViewNumber.addTextChangedListener(new TextWatcher() {

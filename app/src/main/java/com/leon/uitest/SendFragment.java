@@ -2,6 +2,8 @@ package com.leon.uitest;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,9 @@ public class SendFragment extends DialogFragment {
     ArrayList<MenuModel> menuModels1;
     List<MenuModel> menuModels2;
 
+    TextView textViewItemNumber, textViewItemPrice, textViewItemToman;
+    int totalPrice, total;
+
     public static SendFragment newInstance(ArrayList<MenuModel> menuModels) {
         SendFragment sendFragment = new SendFragment();
         Bundle bundle = new Bundle();
@@ -51,6 +56,9 @@ public class SendFragment extends DialogFragment {
     }
 
     void initialize() {
+        textViewItemNumber = view.findViewById(R.id.textViewItemNumber);
+        textViewItemPrice = view.findViewById(R.id.textViewItemPrice);
+        textViewItemToman = view.findViewById(R.id.textViewItemToman);
         final RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new ItemAdapter(menuModels2, getActivity()));
@@ -68,7 +76,7 @@ public class SendFragment extends DialogFragment {
 
     private class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewItem, textViewPrice, textViewDecrease, textViewIncrease, textViewNumber;
-        ImageView imageView;
+        ImageView imageView, imageViewNo, imageViewYes;
         RelativeLayout relativeLayout;
         LinearLayoutCompat linearLayoutItems, linearLayoutQuestion;
         private View view;
@@ -82,6 +90,8 @@ public class SendFragment extends DialogFragment {
             textViewIncrease = itemView.findViewById(R.id.textViewIncrease);
             textViewNumber = itemView.findViewById(R.id.textViewNumber);
             imageView = itemView.findViewById(R.id.image);
+            imageViewNo = itemView.findViewById(R.id.imageNo);
+            imageViewYes = itemView.findViewById(R.id.imageYes);
             relativeLayout = itemView.findViewById(R.id.relativeLayout);
             linearLayoutItems = itemView.findViewById(R.id.linearLayoutItems);
             linearLayoutQuestion = itemView.findViewById(R.id.linearLayoutQuestion);
@@ -117,7 +127,89 @@ public class SendFragment extends DialogFragment {
             holder.textViewItem.setText(menuModels.get(position).getItem());
             holder.textViewNumber.setText(String.valueOf(menuModels.get(position).getNumber()));
             holder.textViewPrice.setText(String.valueOf(menuModels.get(position).getPrice()));
+
+            onClickListener(holder, position);
             holder.getView().setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+        }
+
+        void onClickListener(final ViewHolder holder, final int position) {
+            totalPrice = 0;
+            total = 0;
+            for (MenuModel menuModel : menuModels) {
+                totalPrice = totalPrice + (menuModel.number * menuModel.price);
+                total = total + menuModel.number;
+            }
+            textViewItemNumber.setText(String.valueOf(total));
+            textViewItemPrice.setText(String.valueOf(totalPrice));
+            holder.textViewIncrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    menuModels.get(position).number = menuModels.get(position).number + 1;
+                    holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
+                }
+            });
+            holder.textViewDecrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (menuModels.get(position).number > 0) {
+                        menuModels.get(position).number = menuModels.get(position).number - 1;
+                        holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
+                    }
+                }
+            });
+            holder.textViewNumber.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    totalPrice = 0;
+                    total = 0;
+                    for (MenuModel menuModel : menuModels) {
+                        totalPrice = totalPrice + (menuModel.number * menuModel.price);
+                        total = total + menuModel.number;
+                    }
+                    textViewItemNumber.setText(String.valueOf(total));
+                    textViewItemNumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down));
+                    textViewItemPrice.setText(String.valueOf(totalPrice));
+                    textViewItemPrice.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out));
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.linearLayoutItems.setVisibility(View.GONE);
+//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
+                    holder.linearLayoutQuestion.setVisibility(View.VISIBLE);
+                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                }
+            });
+            holder.imageViewNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
+                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_in));
+                    holder.linearLayoutQuestion.setVisibility(View.GONE);
+                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+                }
+            });
+            holder.imageViewYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    menuModels.remove(position);
+                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
+                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_in));
+                    holder.linearLayoutQuestion.setVisibility(View.GONE);
+                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+                }
+            });
         }
 
         @Override
