@@ -27,20 +27,56 @@
                 android:src="@drawable/coffee" />
 
             <TextView
-                android:id="@+id/text1"
+                android:id="@+id/textViewItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="?attr/selectableItemBackground"
+                android:text="text1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+            <LinearLayout
+                android:id="@+id/linearLayoutNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewIncrease"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="+"
+                    android:textColor="@color/colorTextSecondary" />
+
+                <TextView
+                    android:id="@+id/textViewNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0"
+                    android:textColor="@color/colorTextSecondary" />
+
+                <TextView
+                    android:id="@+id/textViewDecrease"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="-"
+                    android:textColor="@color/colorTextSecondary" />
+
+            </LinearLayout>
+
             <TextView
-                android:id="@+id/text2"
+                android:id="@+id/textViewPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="?attr/selectableItemBackground"
-                android:text="hi"
+                android:text="text2"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="visible" />
         </androidx.appcompat.widget.LinearLayoutCompat>
