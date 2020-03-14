@@ -185,29 +185,29 @@ public class SendFragment extends DialogFragment {
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    holder.linearLayoutItems.setVisibility(View.GONE);
 //                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
+                    holder.linearLayoutItems.setVisibility(View.GONE);
+//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
                     holder.linearLayoutQuestion.setVisibility(View.VISIBLE);
-                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
                 }
             });
             holder.imageViewNo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
-                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_in));
+//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
                     holder.linearLayoutQuestion.setVisibility(View.GONE);
-                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
                 }
             });
             holder.imageViewYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    menuModels.remove(position);
-                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
-                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_in));
+//                    menuModels.remove(position);
+//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
                     holder.linearLayoutQuestion.setVisibility(View.GONE);
-                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
                 }
             });
         }
