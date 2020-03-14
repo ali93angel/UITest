@@ -71,12 +71,15 @@ public class MenuFragment extends BottomSheetDialogFragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                SendFragment sendFragment = SendFragment.newInstance(menuModels);
+                ArrayList<MenuModel> menuModelArrayList = new ArrayList<>();
+                for (MenuModel menuModel : menuModels)
+                    if (menuModel.number > 0)
+                        menuModelArrayList.add(menuModel);
+                SendFragment sendFragment = SendFragment.newInstance(menuModelArrayList);
                 assert getFragmentManager() != null;
                 sendFragment.show(getFragmentManager(), "منو");
-                buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
-                buttonSend.setVisibility(View.VISIBLE);
+//                buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+//                buttonSend.setVisibility(View.VISIBLE);
             }
         });
     }
