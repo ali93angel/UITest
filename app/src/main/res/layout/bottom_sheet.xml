@@ -8,10 +8,10 @@
     android:background="@drawable/item_background_border2"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:paddingStart="@dimen/_16sdp"
-    android:paddingEnd="@dimen/_16sdp"
+    android:paddingStart="78dp"
+    android:paddingEnd="78dp"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="@dimen/_64sdp"
+    app:behavior_peekHeight="150dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <ImageView
@@ -33,7 +33,6 @@
         android:id="@+id/relativeLayoutTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_gravity="center"
         android:background="@drawable/item_background_border2"
         android:gravity="center"

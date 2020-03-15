@@ -39,6 +39,8 @@ public class MenuFragment extends BottomSheetDialogFragment {
     TextView textViewItemToman;
     @BindView(R.id.buttonSend)
     Button buttonSend;
+    //    @BindView(R.id.buttonSent)
+//    Button buttonSent;
     @BindView(R.id.imageViewClose)
     ImageView imageViewClose;
     @BindView(R.id.bottom_sheet)
@@ -77,6 +79,15 @@ public class MenuFragment extends BottomSheetDialogFragment {
         fillRecyclerView1();
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
         setOnBottomSheetListener();
+        setOnButtonSendClickListener();
+    }
+
+    private void setOnButtonSendClickListener() {
+        buttonSend.setOnClickListener(v -> {
+//                relativeLayout.setVisibility(View.GONE);
+//                buttonSent.setVisibility(View.VISIBLE);
+//                recyclerView2.setVisibility(View.GONE);
+        });
     }
 
     private void fillRecyclerView1() {
@@ -325,8 +336,8 @@ public class MenuFragment extends BottomSheetDialogFragment {
                 @Override
                 public void onClick(View v) {
                     if (!zoom) {
-                        imageView.getLayoutParams().height = 250;
-                        imageView.getLayoutParams().width = 250;
+                        imageView.getLayoutParams().height = 180;
+                        imageView.getLayoutParams().width = 180;
                         textViewDecrease.setVisibility(View.VISIBLE);
                         textViewIncrease.setVisibility(View.VISIBLE);
                         textViewNumber.setVisibility(View.VISIBLE);
