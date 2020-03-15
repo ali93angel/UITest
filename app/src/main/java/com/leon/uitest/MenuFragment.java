@@ -26,18 +26,34 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MenuFragment extends BottomSheetDialogFragment {
     private static final String ARG_ITEM_COUNT = "item_count";
-    TextView textViewItemNumber, textViewItemPrice, textViewItemToman;
-    int totalPrice, total;
+    @BindView(R.id.textViewItemNumber)
+    TextView textViewItemNumber;
+    @BindView(R.id.textViewItemPrice)
+    TextView textViewItemPrice;
+    @BindView(R.id.textViewItemToman)
+    TextView textViewItemToman;
+    @BindView(R.id.buttonSend)
     Button buttonSend;
-    RelativeLayout relativeLayout;
-    ArrayList<MenuModel> menuModels1 = new ArrayList<>();
-    ArrayList<MenuModel> menuModels2 = new ArrayList<>();
-    View findViewById;
+    @BindView(R.id.imageViewClose)
     ImageView imageViewClose;
+    @BindView(R.id.bottom_sheet)
+    LinearLayout bottom_sheet;
+    @BindView(R.id.relativeLayoutTotal)
+    RelativeLayout relativeLayout;
+    @BindView(R.id.list1)
+    RecyclerView recyclerView1;
+    @BindView(R.id.list2)
+    RecyclerView recyclerView2;
+    private int totalPrice, total;
+    private View findViewById;
+    private ArrayList<MenuModel> menuModels1 = new ArrayList<>();
+    private ArrayList<MenuModel> menuModels2 = new ArrayList<>();
     private BottomSheetBehavior sheetBehavior;
-    private LinearLayout bottom_sheet;
 
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
@@ -52,34 +68,29 @@ public class MenuFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         findViewById = inflater.inflate(R.layout.menu_fragment, container, false);
+        ButterKnife.bind(this, findViewById);
         return findViewById;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        fillRecyclerView1();
+        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
+        setOnBottomSheetListener();
+    }
+
+    void fillRecyclerView1() {
         menuModels1.add(new MenuModel("قهوه", 12000, R.drawable.coffee));
         menuModels1.add(new MenuModel("چیزکیک", 23000, R.drawable.coffee));
         menuModels1.add(new MenuModel("لاته", 1600, R.drawable.coffee));
         menuModels1.add(new MenuModel("کاپوچینو", 1500, R.drawable.coffee));
         menuModels1.add(new MenuModel("کرتادو", 17000, R.drawable.coffee));
         menuModels1.add(new MenuModel("کولد برو", 14500, R.drawable.coffee));
-        textViewItemNumber = view.findViewById(R.id.textViewItemNumber);
-        textViewItemPrice = view.findViewById(R.id.textViewItemPrice);
-        textViewItemToman = view.findViewById(R.id.textViewItemToman);
-        buttonSend = view.findViewById(R.id.buttonSend);
-        imageViewClose = view.findViewById(R.id.imageViewClose);
-        bottom_sheet = view.findViewById(R.id.bottom_sheet);
-        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
-
-        relativeLayout = view.findViewById(R.id.relativeLayoutTotal);
-        setOnRelativeLayoutClickListener();
-        final RecyclerView recyclerView = view.findViewById(R.id.list1);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ItemAdapter1(menuModels1, getActivity()));
+        recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView1.setAdapter(new ItemAdapter1(menuModels1, getActivity()));
     }
 
-    void setOnRelativeLayoutClickListener() {
-        final RecyclerView recyclerView = findViewById.findViewById(R.id.list2);
+    private void setOnBottomSheetListener() {
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int newState) {
@@ -88,12 +99,12 @@ public class MenuFragment extends BottomSheetDialogFragment {
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED:
                         imageViewClose.setVisibility(View.VISIBLE);
-                        recyclerView.setVisibility(View.VISIBLE);
+                        recyclerView2.setVisibility(View.VISIBLE);
                         buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
                         buttonSend.setVisibility(View.VISIBLE);
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
-                        recyclerView.setVisibility(View.GONE);
+                        recyclerView2.setVisibility(View.GONE);
                         buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
                         buttonSend.setVisibility(View.GONE);
                         imageViewClose.setVisibility(View.GONE);
@@ -102,27 +113,30 @@ public class MenuFragment extends BottomSheetDialogFragment {
                         break;
                     case BottomSheetBehavior.STATE_SETTLING:
                         break;
+                    case BottomSheetBehavior.STATE_HALF_EXPANDED:
+                        break;
                 }
             }
 
             @Override
             public void onSlide(@NonNull View view, float v) {
-                menuModels2 = new ArrayList<>();
-                for (MenuModel menuModel : menuModels1)
-                    if (menuModel.number > 0)
-                        menuModels2.add(menuModel);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(new ItemAdapter2(menuModels2, getActivity()));
+                fillRecyclerView2();
             }
         });
-        imageViewClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (sheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
+        imageViewClose.setOnClickListener(view -> {
+            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
         });
+    }
+
+    void fillRecyclerView2() {
+        menuModels2 = new ArrayList<>();
+        for (MenuModel menuModel : menuModels1)
+            if (menuModel.number > 0)
+                menuModels2.add(menuModel);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView2.setAdapter(new ItemAdapter2(menuModels2, getActivity()));
     }
 
     private class ViewHolder2 extends RecyclerView.ViewHolder {
@@ -151,7 +165,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
             view = parent;
         }
 
-        public View getView() {
+        View getView() {
             return view;
         }
 
@@ -178,7 +192,6 @@ public class MenuFragment extends BottomSheetDialogFragment {
             holder.textViewItem.setText(menuModels.get(position).getItem());
             holder.textViewNumber.setText(String.valueOf(menuModels.get(position).getNumber()));
             holder.textViewPrice.setText(String.valueOf(menuModels.get(position).getPrice()));
-
             onClickListener(holder, position);
             holder.getView().setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
         }
@@ -259,7 +272,6 @@ public class MenuFragment extends BottomSheetDialogFragment {
             textViewItemNumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down));
             textViewItemPrice.setText(String.valueOf(totalPrice));
             textViewItemPrice.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out));
-
         }
 
         @Override
@@ -275,7 +287,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
         ImageView imageView;
         RelativeLayout relativeLayout;
         LinearLayout linearLayout;
-        private View view;
+        View view;
         int padding, size;
         boolean zoom = false;
 
@@ -300,7 +312,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
             view = parent;
         }
 
-        public View getView() {
+        View getView() {
             return view;
         }
 
@@ -415,13 +427,9 @@ public class MenuFragment extends BottomSheetDialogFragment {
             });
         }
 
-
         @Override
         public int getItemCount() {
             return menuModels.size();
         }
-
-
     }
-
 }

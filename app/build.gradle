@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
 }
 
@@ -48,7 +52,10 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    annotationProcessor 'com.jakewharton:butterknife:10.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+    //noinspection AnnotationProcessorOnCompilePath
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    //noinspection AnnotationProcessorOnCompilePath
+    implementation 'com.jakewharton:butterknife-compiler:10.2.1'
     annotationProcessor "com.jakewharton:butterknife-compiler:10.2.1"
 }
