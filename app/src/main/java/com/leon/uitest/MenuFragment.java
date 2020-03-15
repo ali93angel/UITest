@@ -79,7 +79,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
         setOnBottomSheetListener();
     }
 
-    void fillRecyclerView1() {
+    private void fillRecyclerView1() {
         menuModels1.add(new MenuModel("قهوه", 12000, R.drawable.coffee));
         menuModels1.add(new MenuModel("چیزکیک", 23000, R.drawable.coffee));
         menuModels1.add(new MenuModel("لاته", 1600, R.drawable.coffee));
@@ -130,7 +130,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
         });
     }
 
-    void fillRecyclerView2() {
+    private void fillRecyclerView2() {
         menuModels2 = new ArrayList<>();
         for (MenuModel menuModel : menuModels1)
             if (menuModel.number > 0)
