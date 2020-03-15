@@ -58,6 +58,12 @@ public class MenuFragment extends BottomSheetDialogFragment {
     private ArrayList<MenuModel> menuModels2 = new ArrayList<>();
     private BottomSheetBehavior sheetBehavior;
 
+    private Animation closeMain, zoomIn, openMain, zoomOut,
+            blink, hideToBottom, jumpToDown, jumpFromDown,
+            noChange, openNext, scaleDown, rotate,
+            scaleUp, showFromBottom, slideUp, slideDown,
+            slideUpInfo, slideDownInfo, fadeIn, closeNext, fadeOut;
+
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
         final Bundle args = new Bundle();
@@ -79,8 +85,33 @@ public class MenuFragment extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         fillRecyclerView1();
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
+        initializeAnimation();
         setOnBottomSheetListener();
         setOnButtonSendClickListener();
+    }
+
+    private void initializeAnimation() {
+        zoomIn = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in);
+        openMain = AnimationUtils.loadAnimation(getActivity(), R.anim.open_main);
+        zoomOut = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out);
+        closeMain = AnimationUtils.loadAnimation(getActivity(), R.anim.close_main);
+        blink = AnimationUtils.loadAnimation(getActivity(), R.anim.blink);
+        hideToBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_to_bottom);
+        jumpFromDown = AnimationUtils.loadAnimation(getActivity(), R.anim.jump_from_down);
+        jumpToDown = AnimationUtils.loadAnimation(getActivity(), R.anim.jump_to_down);
+        noChange = AnimationUtils.loadAnimation(getActivity(), R.anim.no_change);
+        openNext = AnimationUtils.loadAnimation(getActivity(), R.anim.open_next);
+        rotate = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
+        scaleDown = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_down);
+        scaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_up);
+        showFromBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.show_from_bottom);
+        slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
+        slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
+        slideUpInfo = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up_info);
+        slideDownInfo = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down_info);
+        closeNext = AnimationUtils.loadAnimation(getActivity(), R.anim.close_next);
+        fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+        fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
     }
 
     private void setOnButtonSendClickListener() {
@@ -333,10 +364,6 @@ public class MenuFragment extends BottomSheetDialogFragment {
         }
 
         void onMotionTransitionListener() {
-            final Animation animation1 = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in);
-            final Animation animation2 = AnimationUtils.loadAnimation(getActivity(), R.anim.open_main);
-            final Animation animation3 = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out);
-            final Animation animation4 = AnimationUtils.loadAnimation(getActivity(), R.anim.close_main);
             View.OnClickListener onClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -348,10 +375,10 @@ public class MenuFragment extends BottomSheetDialogFragment {
                         textViewNumber.setVisibility(View.VISIBLE);
                         relativeLayout.setPadding(0, 0, 0, 0);
                         relativeLayout.setPadding(0, 0, 0, 0);
-                        relativeLayout.startAnimation(animation1);
-                        textViewNumber.startAnimation(animation2);
-                        textViewDecrease.startAnimation(animation2);
-                        textViewIncrease.startAnimation(animation2);
+                        relativeLayout.startAnimation(zoomIn);
+                        textViewNumber.startAnimation(openMain);
+                        textViewDecrease.startAnimation(openMain);
+                        textViewIncrease.startAnimation(openMain);
                         zoom = true;
                     } else {
                         imageView.getLayoutParams().height = size;
@@ -360,10 +387,10 @@ public class MenuFragment extends BottomSheetDialogFragment {
                         textViewIncrease.setVisibility(View.GONE);
                         textViewNumber.setVisibility(View.GONE);
                         relativeLayout.setPadding(padding, padding, padding, padding);
-                        relativeLayout.startAnimation(animation3);
-                        textViewNumber.startAnimation(animation4);
-                        textViewDecrease.startAnimation(animation4);
-                        textViewIncrease.startAnimation(animation4);
+                        relativeLayout.startAnimation(zoomOut);
+                        textViewNumber.startAnimation(closeMain);
+                        textViewDecrease.startAnimation(closeMain);
+                        textViewIncrease.startAnimation(closeMain);
                         zoom = false;
                     }
                 }
