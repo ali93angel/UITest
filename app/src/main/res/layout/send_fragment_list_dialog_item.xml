@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="rtl"
-    android:padding="@dimen/_15sdp"
+    android:padding="@dimen/_10sdp"
     app:layoutDescription="@xml/motion_scene">
 
     <androidx.appcompat.widget.LinearLayoutCompat

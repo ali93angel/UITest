@@ -60,9 +60,9 @@ public class SendFragment extends DialogFragment {
         textViewItemNumber = view.findViewById(R.id.textViewItemNumber);
         textViewItemPrice = view.findViewById(R.id.textViewItemPrice);
         textViewItemToman = view.findViewById(R.id.textViewItemToman);
-        final RecyclerView recyclerView = view.findViewById(R.id.list);
+        final RecyclerView recyclerView = view.findViewById(R.id.list1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ItemAdapter(menuModels1, getActivity()));
+        recyclerView.setAdapter(new ItemAdapter2(menuModels1, getActivity()));
 
     }
 
@@ -75,14 +75,14 @@ public class SendFragment extends DialogFragment {
         super.onResume();
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    private class ViewHolder2 extends RecyclerView.ViewHolder {
         TextView textViewItem, textViewPrice, textViewDecrease, textViewIncrease, textViewNumber;
         ImageView imageView, imageViewNo, imageViewYes;
         RelativeLayout relativeLayout;
         LinearLayoutCompat linearLayoutItems, linearLayoutQuestion;
         private View view;
 
-        ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        ViewHolder2(LayoutInflater inflater, ViewGroup parent) {
             // TODO: Customize the item layout
             super(inflater.inflate(R.layout.send_fragment_list_dialog_item, parent, false));
             textViewItem = itemView.findViewById(R.id.textViewItem);
@@ -107,24 +107,24 @@ public class SendFragment extends DialogFragment {
 
     }
 
-    private class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
+    private class ItemAdapter2 extends RecyclerView.Adapter<ViewHolder2> {
 
         ArrayList<MenuModel> menuModels;
         private Context mContext;
 
-        ItemAdapter(ArrayList<MenuModel> menuModels, Context context) {
+        ItemAdapter2(ArrayList<MenuModel> menuModels, Context context) {
             this.menuModels = menuModels;
             mContext = context;
         }
 
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+        public ViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new ViewHolder2(LayoutInflater.from(parent.getContext()), parent);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder2 holder, int position) {
             holder.textViewItem.setText(menuModels.get(position).getItem());
             holder.textViewNumber.setText(String.valueOf(menuModels.get(position).getNumber()));
             holder.textViewPrice.setText(String.valueOf(menuModels.get(position).getPrice()));
@@ -133,7 +133,7 @@ public class SendFragment extends DialogFragment {
             holder.getView().setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
         }
 
-        void onClickListener(final ViewHolder holder, final int position) {
+        void onClickListener(final ViewHolder2 holder, final int position) {
             counting();
             holder.textViewIncrease.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -17,9 +17,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
@@ -30,7 +32,12 @@ public class MenuFragment extends BottomSheetDialogFragment {
     int totalPrice, total;
     Button buttonSend;
     RelativeLayout relativeLayout;
-    ArrayList<MenuModel> menuModels = new ArrayList<>();
+    ArrayList<MenuModel> menuModels1 = new ArrayList<>();
+    ArrayList<MenuModel> menuModels2 = new ArrayList<>();
+    View findViewById;
+    ImageView imageViewClose;
+    private BottomSheetBehavior sheetBehavior;
+    private LinearLayout bottom_sheet;
 
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
@@ -44,46 +51,226 @@ public class MenuFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.menu_fragment_list_dialog, container, false);
+        findViewById = inflater.inflate(R.layout.menu_fragment, container, false);
+        return findViewById;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        menuModels.add(new MenuModel("قهوه", 12000, R.drawable.coffee));
-        menuModels.add(new MenuModel("چیزکیک", 23000, R.drawable.coffee));
-        menuModels.add(new MenuModel("لاته", 1600, R.drawable.coffee));
-        menuModels.add(new MenuModel("کاپوچینو", 1500, R.drawable.coffee));
-        menuModels.add(new MenuModel("کرتادو", 17000, R.drawable.coffee));
-        menuModels.add(new MenuModel("کولد برو", 14500, R.drawable.coffee));
+        menuModels1.add(new MenuModel("قهوه", 12000, R.drawable.coffee));
+        menuModels1.add(new MenuModel("چیزکیک", 23000, R.drawable.coffee));
+        menuModels1.add(new MenuModel("لاته", 1600, R.drawable.coffee));
+        menuModels1.add(new MenuModel("کاپوچینو", 1500, R.drawable.coffee));
+        menuModels1.add(new MenuModel("کرتادو", 17000, R.drawable.coffee));
+        menuModels1.add(new MenuModel("کولد برو", 14500, R.drawable.coffee));
         textViewItemNumber = view.findViewById(R.id.textViewItemNumber);
         textViewItemPrice = view.findViewById(R.id.textViewItemPrice);
         textViewItemToman = view.findViewById(R.id.textViewItemToman);
+        buttonSend = view.findViewById(R.id.buttonSend);
+        imageViewClose = view.findViewById(R.id.imageViewClose);
+        bottom_sheet = view.findViewById(R.id.bottom_sheet);
+        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
 
         relativeLayout = view.findViewById(R.id.relativeLayoutTotal);
         setOnRelativeLayoutClickListener();
-        final RecyclerView recyclerView = view.findViewById(R.id.list);
+        final RecyclerView recyclerView = view.findViewById(R.id.list1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ItemAdapter(menuModels, getActivity()));
+        recyclerView.setAdapter(new ItemAdapter1(menuModels1, getActivity()));
     }
 
     void setOnRelativeLayoutClickListener() {
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
+        final RecyclerView recyclerView = findViewById.findViewById(R.id.list2);
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
-            public void onClick(View v) {
-                ArrayList<MenuModel> menuModelArrayList = new ArrayList<>();
-                for (MenuModel menuModel : menuModels)
+            public void onStateChanged(@NonNull View view, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        imageViewClose.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+                        buttonSend.setVisibility(View.VISIBLE);
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        recyclerView.setVisibility(View.GONE);
+                        buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
+                        buttonSend.setVisibility(View.GONE);
+                        imageViewClose.setVisibility(View.GONE);
+                        break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+                menuModels2 = new ArrayList<>();
+                for (MenuModel menuModel : menuModels1)
                     if (menuModel.number > 0)
-                        menuModelArrayList.add(menuModel);
-                SendFragment sendFragment = SendFragment.newInstance(menuModelArrayList);
-                assert getFragmentManager() != null;
-                sendFragment.show(getFragmentManager(), "منو");
-//                buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
-//                buttonSend.setVisibility(View.VISIBLE);
+                        menuModels2.add(menuModel);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setAdapter(new ItemAdapter2(menuModels2, getActivity()));
+            }
+        });
+        imageViewClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
+                    sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
             }
         });
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    private class ViewHolder2 extends RecyclerView.ViewHolder {
+        TextView textViewItem, textViewPrice, textViewDecrease, textViewIncrease, textViewNumber;
+        ImageView imageView, imageViewNo, imageViewYes;
+        RelativeLayout relativeLayout;
+        LinearLayoutCompat linearLayoutItems, linearLayoutQuestion;
+        private View view;
+
+        ViewHolder2(LayoutInflater inflater, ViewGroup parent) {
+            // TODO: Customize the item layout
+            super(inflater.inflate(R.layout.send_fragment_list_dialog_item, parent, false));
+            textViewItem = itemView.findViewById(R.id.textViewItem);
+            textViewPrice = itemView.findViewById(R.id.textViewPrice);
+            textViewDecrease = itemView.findViewById(R.id.textViewDecrease);
+            textViewIncrease = itemView.findViewById(R.id.textViewIncrease);
+            textViewNumber = itemView.findViewById(R.id.textViewNumber);
+            imageView = itemView.findViewById(R.id.image);
+            imageViewNo = itemView.findViewById(R.id.imageNo);
+            imageViewYes = itemView.findViewById(R.id.imageYes);
+            relativeLayout = itemView.findViewById(R.id.relativeLayout);
+            linearLayoutItems = itemView.findViewById(R.id.linearLayoutItems);
+            linearLayoutQuestion = itemView.findViewById(R.id.linearLayoutQuestion);
+            linearLayoutQuestion.setVisibility(View.GONE);
+
+            view = parent;
+        }
+
+        public View getView() {
+            return view;
+        }
+
+    }
+
+    private class ItemAdapter2 extends RecyclerView.Adapter<ViewHolder2> {
+
+        ArrayList<MenuModel> menuModels;
+        private Context mContext;
+
+        ItemAdapter2(ArrayList<MenuModel> menuModels, Context context) {
+            this.menuModels = menuModels;
+            mContext = context;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new ViewHolder2(LayoutInflater.from(parent.getContext()), parent);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder2 holder, int position) {
+            holder.textViewItem.setText(menuModels.get(position).getItem());
+            holder.textViewNumber.setText(String.valueOf(menuModels.get(position).getNumber()));
+            holder.textViewPrice.setText(String.valueOf(menuModels.get(position).getPrice()));
+
+            onClickListener(holder, position);
+            holder.getView().setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+        }
+
+        void onClickListener(final ViewHolder2 holder, final int position) {
+            counting();
+            holder.textViewIncrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    menuModels.get(position).number = menuModels.get(position).number + 1;
+                    holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
+                }
+            });
+            holder.textViewDecrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (menuModels.get(position).number > 0) {
+                        menuModels.get(position).number = menuModels.get(position).number - 1;
+                        holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
+                    }
+                }
+            });
+            holder.textViewNumber.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    counting();
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
+                    holder.linearLayoutItems.setVisibility(View.GONE);
+//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                    holder.linearLayoutQuestion.setVisibility(View.VISIBLE);
+                }
+            });
+            holder.imageViewNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
+                    holder.linearLayoutQuestion.setVisibility(View.GONE);
+//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
+                }
+            });
+            holder.imageViewYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    menuModels.remove(position);
+//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
+                    holder.linearLayoutQuestion.setVisibility(View.GONE);
+//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
+                    counting();
+                }
+            });
+        }
+
+        void counting() {
+            totalPrice = 0;
+            total = 0;
+            for (MenuModel menuModel : menuModels) {
+                totalPrice = totalPrice + (menuModel.number * menuModel.price);
+                total = total + menuModel.number;
+            }
+            textViewItemNumber.setText(String.valueOf(total));
+            textViewItemNumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down));
+            textViewItemPrice.setText(String.valueOf(totalPrice));
+            textViewItemPrice.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out));
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return menuModels.size();
+        }
+
+
+    }
+
+    private class ViewHolder1 extends RecyclerView.ViewHolder {
         TextView textViewItem, textViewPrice, textViewDecrease, textViewIncrease, textViewNumber;
         ImageView imageView;
         RelativeLayout relativeLayout;
@@ -92,7 +279,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
         int padding, size;
         boolean zoom = false;
 
-        ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        ViewHolder1(LayoutInflater inflater, ViewGroup parent) {
             // TODO: Customize the item layout
             super(inflater.inflate(R.layout.menu_fragment_list_dialog_item, parent, false));
             textViewItem = itemView.findViewById(R.id.textViewItem);
@@ -159,24 +346,24 @@ public class MenuFragment extends BottomSheetDialogFragment {
         }
     }
 
-    private class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
+    private class ItemAdapter1 extends RecyclerView.Adapter<ViewHolder1> {
 
         ArrayList<MenuModel> menuModels;
         private Context mContext;
 
-        ItemAdapter(ArrayList<MenuModel> menuModels, Context context) {
+        ItemAdapter1(ArrayList<MenuModel> menuModels, Context context) {
             this.menuModels = menuModels;
             mContext = context;
         }
 
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+        public ViewHolder1 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new ViewHolder1(LayoutInflater.from(parent.getContext()), parent);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder1 holder, int position) {
             holder.textViewItem.setText(menuModels.get(position).getItem());
             holder.textViewNumber.setText(String.valueOf(menuModels.get(position).getNumber()));
             holder.textViewPrice.setText(String.valueOf(menuModels.get(position).getPrice()));
@@ -184,7 +371,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
             holder.getView().setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
         }
 
-        void onTextViewClickListener(final ViewHolder holder, final int position) {
+        void onTextViewClickListener(final ViewHolder1 holder, final int position) {
             holder.textViewIncrease.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
