@@ -116,10 +116,14 @@ public class MenuFragment extends BottomSheetDialogFragment {
     private void setOnButtonSendClickListener() {
         buttonSend.setOnClickListener(v -> {
             buttonSent.setVisibility(View.VISIBLE);
+            buttonSent.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in));
             bottom_sheet.setBackground(getResources().getDrawable(R.drawable.item_background_border1));
             imageViewClose.setVisibility(View.GONE);
+            imageViewClose.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
             relativeLayout.setVisibility(View.GONE);
+            relativeLayout.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
             recyclerView2.setVisibility(View.GONE);
+            recyclerView2.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
         });
     }
 
@@ -144,15 +148,19 @@ public class MenuFragment extends BottomSheetDialogFragment {
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED:
                         imageViewClose.setVisibility(View.VISIBLE);
-                        recyclerView2.setVisibility(View.VISIBLE);
-                        buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+                        imageViewClose.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
                         buttonSend.setVisibility(View.VISIBLE);
+                        buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+                        recyclerView2.setVisibility(View.VISIBLE);
+                        recyclerView2.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.show_from_bottom));
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
-                        recyclerView2.setVisibility(View.GONE);
-                        buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
                         buttonSend.setVisibility(View.GONE);
+                        buttonSend.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
                         imageViewClose.setVisibility(View.GONE);
+                        imageViewClose.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
+                        recyclerView2.setVisibility(View.GONE);
+                        recyclerView2.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out));
                         break;
                     case BottomSheetBehavior.STATE_DRAGGING:
                         break;
@@ -244,20 +252,14 @@ public class MenuFragment extends BottomSheetDialogFragment {
 
         void onClickListener(final ViewHolder2 holder, final int position) {
             counting();
-            holder.textViewIncrease.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    menuModels.get(position).number = menuModels.get(position).number + 1;
-                    holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
-                }
+            holder.textViewIncrease.setOnClickListener(v -> {
+                menuModels.get(position).number = menuModels.get(position).number + 1;
+                holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
             });
-            holder.textViewDecrease.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (menuModels.get(position).number > 0) {
-                        menuModels.get(position).number = menuModels.get(position).number - 1;
-                        holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
-                    }
+            holder.textViewDecrease.setOnClickListener(v -> {
+                if (menuModels.get(position).number > 0) {
+                    menuModels.get(position).number = menuModels.get(position).number - 1;
+                    holder.textViewNumber.setText(String.valueOf(menuModels.get(position).number));
                 }
             });
             holder.textViewNumber.addTextChangedListener(new TextWatcher() {
@@ -276,34 +278,33 @@ public class MenuFragment extends BottomSheetDialogFragment {
 
                 }
             });
-            holder.imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
-                    holder.linearLayoutItems.setVisibility(View.GONE);
-//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
-                    holder.linearLayoutQuestion.setVisibility(View.VISIBLE);
-                }
+            holder.imageView.setOnClickListener(v -> {
+                holder.linearLayoutItems.clearAnimation();
+                holder.linearLayoutItems.clearAnimation();
+//                holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+                holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                holder.linearLayoutItems.setVisibility(View.GONE);
+                holder.linearLayoutQuestion.setVisibility(View.VISIBLE);
+//                holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+                holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
             });
-            holder.imageViewNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
-                    holder.linearLayoutQuestion.setVisibility(View.GONE);
-//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
-                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
-                }
+            holder.imageViewNo.setOnClickListener(v -> {
+                holder.linearLayoutQuestion.clearAnimation();
+                holder.linearLayoutItems.clearAnimation();
+//                holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+                holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                holder.linearLayoutQuestion.setVisibility(View.GONE);
+                holder.linearLayoutItems.setVisibility(View.VISIBLE);
+//                holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+                holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
             });
-            holder.imageViewYes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    menuModels.remove(position);
-//                    holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_out));
-                    holder.linearLayoutQuestion.setVisibility(View.GONE);
-//                    holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
-                    holder.linearLayoutItems.setVisibility(View.VISIBLE);
-                    counting();
-                }
+            holder.imageViewYes.setOnClickListener(v -> {
+                menuModels.remove(position);
+                holder.linearLayoutQuestion.setVisibility(View.GONE);
+                holder.linearLayoutQuestion.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_out));
+                holder.linearLayoutItems.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.zoom_in));
+                holder.linearLayoutItems.setVisibility(View.VISIBLE);
+                counting();
             });
         }
 
