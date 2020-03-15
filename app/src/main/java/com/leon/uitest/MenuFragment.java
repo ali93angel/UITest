@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,11 +57,11 @@ public class MenuFragment extends BottomSheetDialogFragment {
     private ArrayList<MenuModel> menuModels2 = new ArrayList<>();
     private BottomSheetBehavior sheetBehavior;
 
-    private Animation closeMain, zoomIn, openMain, zoomOut,
-            blink, hideToBottom, jumpToDown, jumpFromDown,
-            noChange, openNext, scaleDown, rotate,
-            scaleUp, showFromBottom, slideUp, slideDown,
-            slideUpInfo, slideDownInfo, fadeIn, closeNext, fadeOut;
+//    private Animation closeMain, zoomIn, openMain, zoomOut,
+//            blink, hideToBottom, animation8, animation7,
+//            animation9, animation10, animation12, animation11,
+//            animation13, animation14, animation16, animation15,
+//            animation17, animation18, animation20, animation19, animation21;
 
     public static MenuFragment newInstance(int itemCount) {
         final MenuFragment fragment = new MenuFragment();
@@ -85,34 +84,34 @@ public class MenuFragment extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         fillRecyclerView1();
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
-        initializeAnimation();
+//        initializeAnimation();
         setOnBottomSheetListener();
         setOnButtonSendClickListener();
     }
-
-    private void initializeAnimation() {
-        zoomIn = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in);
-        openMain = AnimationUtils.loadAnimation(getActivity(), R.anim.open_main);
-        zoomOut = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out);
-        closeMain = AnimationUtils.loadAnimation(getActivity(), R.anim.close_main);
-        blink = AnimationUtils.loadAnimation(getActivity(), R.anim.blink);
-        hideToBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_to_bottom);
-        jumpFromDown = AnimationUtils.loadAnimation(getActivity(), R.anim.jump_from_down);
-        jumpToDown = AnimationUtils.loadAnimation(getActivity(), R.anim.jump_to_down);
-        noChange = AnimationUtils.loadAnimation(getActivity(), R.anim.no_change);
-        openNext = AnimationUtils.loadAnimation(getActivity(), R.anim.open_next);
-        rotate = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
-        scaleDown = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_down);
-        scaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_up);
-        showFromBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.show_from_bottom);
-        slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
-        slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
-        slideUpInfo = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up_info);
-        slideDownInfo = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down_info);
-        closeNext = AnimationUtils.loadAnimation(getActivity(), R.anim.close_next);
-        fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
-        fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
-    }
+//
+//    private void initializeAnimation() {
+//        zoomIn = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in);
+//        openMain = AnimationUtils.loadAnimation(getActivity(), R.anim.open_main);
+//        zoomOut = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out);
+//        closeMain = AnimationUtils.loadAnimation(getActivity(), R.anim.close_main);
+//        blink = AnimationUtils.loadAnimation(getActivity(), R.anim.blink);
+//        hideToBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_to_bottom);
+//        animation7 = AnimationUtils.loadAnimation(getActivity(), R.anim.jump_from_down);
+//        animation8 = AnimationUtils.loadAnimation(getActivity(), R.anim.jump_to_down);
+//        animation9 = AnimationUtils.loadAnimation(getActivity(), R.anim.no_change);
+//        animation10 = AnimationUtils.loadAnimation(getActivity(), R.anim.open_next);
+//        animation11 = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
+//        animation12 = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_down);
+//        animation13 = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_up);
+//        animation14 = AnimationUtils.loadAnimation(getActivity(), R.anim.show_from_bottom);
+//        animation15 = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
+//        animation16 = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
+//        animation17 = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up_info);
+//        animation18 = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down_info);
+//        animation19 = AnimationUtils.loadAnimation(getActivity(), R.anim.close_next);
+//        animation20 = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+//        animation20 = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+//    }
 
     private void setOnButtonSendClickListener() {
         buttonSend.setOnClickListener(v -> {
@@ -364,35 +363,32 @@ public class MenuFragment extends BottomSheetDialogFragment {
         }
 
         void onMotionTransitionListener() {
-            View.OnClickListener onClickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!zoom) {
-                        imageView.getLayoutParams().height = 180;
-                        imageView.getLayoutParams().width = 180;
-                        textViewDecrease.setVisibility(View.VISIBLE);
-                        textViewIncrease.setVisibility(View.VISIBLE);
-                        textViewNumber.setVisibility(View.VISIBLE);
-                        relativeLayout.setPadding(0, 0, 0, 0);
-                        relativeLayout.setPadding(0, 0, 0, 0);
-                        relativeLayout.startAnimation(zoomIn);
-                        textViewNumber.startAnimation(openMain);
-                        textViewDecrease.startAnimation(openMain);
-                        textViewIncrease.startAnimation(openMain);
-                        zoom = true;
-                    } else {
-                        imageView.getLayoutParams().height = size;
-                        imageView.getLayoutParams().width = size;
-                        textViewDecrease.setVisibility(View.GONE);
-                        textViewIncrease.setVisibility(View.GONE);
-                        textViewNumber.setVisibility(View.GONE);
-                        relativeLayout.setPadding(padding, padding, padding, padding);
-                        relativeLayout.startAnimation(zoomOut);
-                        textViewNumber.startAnimation(closeMain);
-                        textViewDecrease.startAnimation(closeMain);
-                        textViewIncrease.startAnimation(closeMain);
-                        zoom = false;
-                    }
+            View.OnClickListener onClickListener = v -> {
+                if (!zoom) {
+                    imageView.getLayoutParams().height = 180;
+                    imageView.getLayoutParams().width = 180;
+                    textViewDecrease.setVisibility(View.VISIBLE);
+                    textViewIncrease.setVisibility(View.VISIBLE);
+                    textViewNumber.setVisibility(View.VISIBLE);
+                    relativeLayout.setPadding(0, 0, 0, 0);
+                    relativeLayout.setPadding(0, 0, 0, 0);
+                    relativeLayout.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in));
+                    textViewNumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+                    textViewDecrease.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+                    textViewIncrease.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+                    zoom = true;
+                } else {
+                    imageView.getLayoutParams().height = size;
+                    imageView.getLayoutParams().width = size;
+                    textViewDecrease.setVisibility(View.GONE);
+                    textViewIncrease.setVisibility(View.GONE);
+                    textViewNumber.setVisibility(View.GONE);
+                    relativeLayout.setPadding(padding, padding, padding, padding);
+                    relativeLayout.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_out));
+                    textViewNumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.close_main));
+                    textViewDecrease.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.close_main));
+                    textViewIncrease.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.close_main));
+                    zoom = false;
                 }
             };
             imageView.setOnClickListener(onClickListener);
