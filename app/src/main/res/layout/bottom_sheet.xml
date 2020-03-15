@@ -9,8 +9,17 @@
     android:layoutDirection="rtl"
     android:orientation="vertical"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="150dp"
+    app:behavior_peekHeight="100dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <Button
+        android:id="@+id/buttonSent"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/item_background_border1"
+        android:text="فاکتور با موفقیت ارسال شد"
+        android:textColor="@color/white"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/imageViewClose"

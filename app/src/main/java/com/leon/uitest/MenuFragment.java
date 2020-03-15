@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,8 @@ public class MenuFragment extends BottomSheetDialogFragment {
     TextView textViewItemToman;
     @BindView(R.id.buttonSend)
     Button buttonSend;
-    //    @BindView(R.id.buttonSent)
-//    Button buttonSent;
+    @BindView(R.id.buttonSent)
+    Button buttonSent;
     @BindView(R.id.imageViewClose)
     ImageView imageViewClose;
     @BindView(R.id.bottom_sheet)
@@ -84,9 +85,11 @@ public class MenuFragment extends BottomSheetDialogFragment {
 
     private void setOnButtonSendClickListener() {
         buttonSend.setOnClickListener(v -> {
-//                relativeLayout.setVisibility(View.GONE);
-//                buttonSent.setVisibility(View.VISIBLE);
-//                recyclerView2.setVisibility(View.GONE);
+            buttonSent.setVisibility(View.VISIBLE);
+            bottom_sheet.setBackground(getResources().getDrawable(R.drawable.item_background_border1));
+            imageViewClose.setVisibility(View.GONE);
+            relativeLayout.setVisibility(View.GONE);
+            recyclerView2.setVisibility(View.GONE);
         });
     }
 
@@ -105,6 +108,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int newState) {
+                Log.e("status", String.valueOf(newState));
                 switch (newState) {
                     case BottomSheetBehavior.STATE_HIDDEN:
                         break;
@@ -133,6 +137,7 @@ public class MenuFragment extends BottomSheetDialogFragment {
             public void onSlide(@NonNull View view, float v) {
                 fillRecyclerView2();
             }
+
         });
         imageViewClose.setOnClickListener(view -> {
             if (sheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
