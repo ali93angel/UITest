@@ -8,8 +8,6 @@
     android:background="@drawable/item_background_border2"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:paddingStart="78dp"
-    android:paddingEnd="78dp"
     app:behavior_hideable="false"
     app:behavior_peekHeight="150dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">

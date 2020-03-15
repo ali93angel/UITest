@@ -8,14 +8,14 @@
     <color name="white">#ffffff</color>
     <color name="errorMessage">#e74c3c</color>
     <color name="homeBackground">#FAFAFA</color>
-    <color name="civBorder">#868686</color>
+    <color name="civBorder">#cccccc</color>
     <color name="hintFontColorWhenFocus">#00155f</color>
     <color name="black">#000000</color>
     <color name="homeBlue">#2d57ec</color>
     <color name="keyboardKeys">#292929</color>
     <color name="colorSecondary">#7f1a18</color>
     <color name="colorTextPrimary">#FFFFFF</color>
-    <color name="colorTextSecondary">#056D40</color>
+    <color name="colorTextSecondary">#07be6e</color>
     <color name="translucentBackground">#ED000000</color>
     <color name="grey">#BDBDBD</color>
     <color name="back_ground_grey">#FAFAFA</color>
@@ -44,8 +44,9 @@
     <color name="refresh_color_9">#5e35b1</color>
     <color name="refresh_color_10">#e53935</color>
 
-    <color name="textPrimary">#424242</color>
-    <color name="textSecondary">#8e8e8e</color>
+    <color name="textPrimary">#8a8a8a</color>
+    <color name="textDark">#0a0a0a</color>
+    <color name="textSecondary">#a4a4a4</color>
     <color name="label_color">#868686</color>
     <color name="value_color_primary_grey">#626262</color>
     <color name="value_color_secondary_grey">#868686</color>

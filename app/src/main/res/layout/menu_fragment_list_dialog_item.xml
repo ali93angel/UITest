@@ -37,7 +37,8 @@
                 android:layout_gravity="center"
                 android:background="?attr/selectableItemBackground"
                 android:text="text1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/textPrimary" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutNumber"
@@ -93,6 +94,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:text="text2"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/textPrimary"
                 android:visibility="visible" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
